@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="base_url" translatable="false"></string><!--Replace it with project related base url-->
+
+    <!--API Parent Method-->
+    <string name="registration" translatable="false">registration</string>
+
+    <!--API Method Name-->
+
+    <!--Login, Registration-->
+    <string name="method_login" translatable="false">login</string>
+    <string name="method_registration" translatable="false">registrations</string>
+
+    <!--API Error Message-->
+    <string name="error_network_timeout">Connection timed out!!! Please try again later</string>
+    <string name="error_network">Please check your network connection and try again later!</string>
+    <string name="error_parse">Oops! Data received was an unreadable mess</string>
+    <string name="error_auth_failure">Authentication required to fulfill the request</string>
+    <string name="error_server">Internal server error!!! Please try again later</string>
+    <string name="error_something_went_wrong">Something went wrong</string>
+
+</resources>
