@@ -2,9 +2,15 @@ package com.droiddip.apparchi.ui.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.droiddip.apparchi.utils.DConnectionUtils;
 import com.droiddip.apparchi.utils.DLogger;
@@ -20,6 +26,8 @@ import com.facebook.login.LoginResult;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 /**
@@ -36,6 +44,30 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initFB();
+        generateKeyHash();
+    }
+
+    /**
+     * Method used to generate Key Hash
+     */
+    private void generateKeyHash() {
+        try {
+            PackageInfo info = this.getPackageManager().getPackageInfo(
+                    "com.yourappname.app",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                DLogger.e("FB_KeyHash", "FB_KeyHash:" + Base64.encodeToString(md.digest(),
+                        Base64.DEFAULT));
+                Toast.makeText(this.getApplicationContext(), Base64.encodeToString(md.digest(),
+                        Base64.DEFAULT), Toast.LENGTH_LONG).show();
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
+        }
     }
 
     @Override
