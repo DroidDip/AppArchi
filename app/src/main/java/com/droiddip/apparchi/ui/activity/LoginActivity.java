@@ -118,34 +118,12 @@ public class LoginActivity extends AppCompatActivity {
                             facebook_profile = "https://graph.facebook.com/" + facebook_id + "/picture?type=large";
                             facebook_cover = "https://graph.facebook.com/" + facebook_id + "?fields=cover&access_token=" + accessToken;
 
-//                            new FbCoverAsync(mContext, facebook_cover, facebook_profile, new FbCoverAsync.FbCoverImgListener() {
-//                                @Override
-//                                public void onSuccess(File cover_file, File profile_file) {
-//                                    if (isViewAttached()) {
-//                                        getView().hideProgressLoading();
-//                                        getView().onFacebookResult(facebook_name, facebook_email, facebook_id, cover_file, profile_file);
-//                                    }
-//
-//
-//                                }
-//
-//                                @Override
-//                                public void onFailure() {
-//                                    if (isViewAttached()) {
-//                                        getView().hideProgressLoading();
-//                                        getView().onFacebookResult(facebook_name, facebook_email, facebook_id, null, null);
-//                                    }
-//
-//                                }
-//                            }).execute();
-
+                            //You can show these values on UI now.
+                            showValuesOnUi();
 
                         } catch (Exception e) {
                             e.printStackTrace();
-//                            if (isViewAttached()) {
-//                                getView().hideProgressLoading();
-//                                getView().onFacebookResult(facebook_name, facebook_email, facebook_id, null, null);
-//                            }
+                            //If any exception occurred then show error(A Toast Message) here, to tell the exact reason.
                         }
                     }
                 });
@@ -153,5 +131,14 @@ public class LoginActivity extends AppCompatActivity {
         parameters.putString("fields", "id,name,email");
         request.setParameters(parameters);
         request.executeAsync();
+    }
+
+    /**
+     * Method to show values on UI
+     */
+    private void showValuesOnUi() {
+        //Show FB User name
+        //Show FB User Email
+        //Show FB profile picture/cover picture using Glide/Any other image loader
     }
 }
