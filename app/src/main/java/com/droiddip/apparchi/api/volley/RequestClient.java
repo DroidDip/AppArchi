@@ -1,6 +1,9 @@
 package com.droiddip.apparchi.api.volley;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -14,6 +17,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.droiddip.apparchi.R;
 import com.droiddip.apparchi.application.AppArchi;
@@ -58,6 +62,16 @@ public class RequestClient {
     public static void requestLoginApi(Context context, Map bodyParams, BaseResponseListener mBaseResponseListener) {
         post(context.getResources().getString(R.string.volley_request_tag), RequestUrlBuilder.getRequestUrl(context, ApiType.LOGIN),
                 bodyParams, mBaseResponseListener);
+    }
+
+    /**
+     * Download Bitmap from URL
+     *
+     * @param imageUrl
+     * @param bitmapDownloadListener
+     */
+    public static void requestBitmapToDownload(String imageUrl, BitmapDownloadListener bitmapDownloadListener) {
+        downloadBitmapFromUrl(imageUrl, bitmapDownloadListener);
     }
 
     /**
@@ -243,6 +257,42 @@ public class RequestClient {
         AppArchi.getInstance().addCacheToRequestQueue(cacheRequest);
 
 
+    }
+
+
+    /**
+     * Download Image Bitmap from URL
+     *
+     * @param imageUrl
+     * @param bitmapDownloadListener
+     */
+    private static void downloadBitmapFromUrl(String imageUrl, final BitmapDownloadListener bitmapDownloadListener) {
+        DLogger.e("post_url:- " + imageUrl);
+
+        ImageRequest imageRequest = new ImageRequest(
+                imageUrl, //Image Url
+                new Response.Listener<Bitmap>() { //Image Bitmap Listener
+                    @Override
+                    public void onResponse(Bitmap response) {
+                        // Do something with response
+                        if (bitmapDownloadListener != null)
+                            bitmapDownloadListener.onBitmapDownloaded(response);
+                    }
+                },
+                0, // Image width
+                0, // Image height
+                ImageView.ScaleType.FIT_XY, // Image scale type
+                Bitmap.Config.RGB_565, //Image decode configuration
+                new Response.ErrorListener() { // Error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Do something with error response
+                        error.printStackTrace();
+                        if (bitmapDownloadListener != null)
+                            bitmapDownloadListener.onBitmapDownloadFailed();
+                    }
+                });
+        AppArchi.getInstance().addImageRequestToQueue(imageRequest);
     }
 
 

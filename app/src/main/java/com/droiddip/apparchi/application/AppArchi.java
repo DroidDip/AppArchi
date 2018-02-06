@@ -3,6 +3,7 @@ package com.droiddip.apparchi.application;
 import android.app.Application;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.droiddip.apparchi.R;
@@ -42,6 +43,10 @@ public class AppArchi extends Application {
 
     public void addCacheToRequestQueue(CacheRequest cacheRequest) {
         getRequestQueue().add(cacheRequest);
+    }
+
+    public void addImageRequestToQueue(ImageRequest imageRequest) {
+        getRequestQueue().add(imageRequest);
     }
 
     public void cancelPendingRequests(Object tag) {

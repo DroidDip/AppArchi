@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,10 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.droiddip.apparchi.api.volley.BitmapDownloadListener;
+import com.droiddip.apparchi.api.volley.RequestClient;
 import com.droiddip.apparchi.utils.DConnectionUtils;
+import com.droiddip.apparchi.utils.DImageUtils;
 import com.droiddip.apparchi.utils.DLogger;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -34,7 +39,7 @@ import java.util.Arrays;
  * Created by Dipanjan Chakraborty on 05-02-2018.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements BitmapDownloadListener {
 
     private CallbackManager callbackManager;
     private String facebook_id = "", facebook_name = "", facebook_email = "", facebook_profile = "",
@@ -150,8 +155,8 @@ public class LoginActivity extends AppCompatActivity {
                             facebook_profile = "https://graph.facebook.com/" + facebook_id + "/picture?type=large";
                             facebook_cover = "https://graph.facebook.com/" + facebook_id + "?fields=cover&access_token=" + accessToken;
 
-                            //You can show these values on UI now.
-                            showValuesOnUi();
+                            //Download Image Bitmap from URL
+                            RequestClient.requestBitmapToDownload(facebook_profile, LoginActivity.this);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -172,5 +177,25 @@ public class LoginActivity extends AppCompatActivity {
         //Show FB User name
         //Show FB User Email
         //Show FB profile picture/cover picture using Glide/Any other image loader
+    }
+
+    @Override
+    public void onBitmapDownloaded(Bitmap bitmap) {
+        //You can show these values on UI now.
+        showValuesOnUi();
+
+        // Do something with bitmap response, you can set bitmap directly to the image view
+//        imageView.setImageBitmap(bitmap);
+
+        // Save this downloaded bitmap to internal storage and get the image URI
+        Uri uri = DImageUtils.saveImageToInternalStorage(bitmap);
+
+        // Save this downloaded bitmap to internal storage and get the image File
+        File file = DImageUtils.saveImageToStorage(bitmap);
+    }
+
+    @Override
+    public void onBitmapDownloadFailed() {
+        //Handle error while not getting the response from Bitmap Request
     }
 }
