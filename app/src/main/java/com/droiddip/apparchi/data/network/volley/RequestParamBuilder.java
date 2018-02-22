@@ -1,9 +1,7 @@
-package com.droiddip.apparchi.api.volley;
+package com.droiddip.apparchi.data.network.volley;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static com.droiddip.apparchi.api.volley.WSConstants.API_KEY;
 
 
 /**
@@ -35,13 +33,13 @@ public class RequestParamBuilder {
 
     public static Map getHeaderParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIKEY, API_KEY);
+        params.put(APIKEY, WSConstants.API_KEY);
         return params;
     }
 
     public static Map getMultipartHeaderParams() {
         Map<String, String> params = new HashMap<String, String>();
-        params.put(APIKEY, API_KEY);
+        params.put(APIKEY, WSConstants.API_KEY);
         params.put(CONTENT_TYPE, "multipart/form-data");
         return params;
     }

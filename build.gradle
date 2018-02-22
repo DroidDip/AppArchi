@@ -25,3 +25,37 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    //SDK & Tools
+    compileSdk = 26
+    minSdk = 19
+    targetSdk = 26
+
+    // dependencies versions
+    supportVersion = "27.0.2"
+    wearableVersion = "11.8.0"
+
+    //Image Loader
+    glideVersion = "3.7.0"
+
+    //View Initialization
+    butterknifeVersion = "8.8.1"
+
+    //dependency injection
+    daggerVersion = "1.2.1"
+
+    //Networking
+    retrofitVersion = "2.3.0"
+    okHttpVersion = "3.4.1"
+    volleyVersion = "1.0.0"
+
+    //Dimen
+    sdpVersion = "1.0.5"
+
+    //Looper shadow
+    shadowVer = "0.0.4-beta1"
+
+    //Bus Events
+    eventBusVersion = "3.0.0"
+}

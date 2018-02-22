@@ -32,7 +32,7 @@ dependencies {
     /**
      * Networking Modules
      */
-    compile 'com.android.volley:volley:1.0.0'
+    implementation "com.android.volley:volley:${rootProject.ext.volleyVersion}"
     compile('org.apache.httpcomponents:httpmime:4.3') {
         exclude module: "httpclient"
     }
@@ -40,5 +40,11 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
+    implementation "org.greenrobot:eventbus:${rootProject.ext.eventBusVersion}"
+    /**
+     * View Initialization
+     */
+    compile "com.jakewharton:butterknife:${rootProject.ext.butterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${rootProject.ext.butterknifeVersion}"
 
 }

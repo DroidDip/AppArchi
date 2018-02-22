@@ -1,6 +1,5 @@
 package com.droiddip.apparchi.ui.activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,11 +10,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.droiddip.apparchi.api.volley.BitmapDownloadListener;
-import com.droiddip.apparchi.api.volley.RequestClient;
+import com.droiddip.apparchi.data.network.volley.BitmapDownloadListener;
+import com.droiddip.apparchi.data.network.volley.RequestClient;
 import com.droiddip.apparchi.utils.DConnectionUtils;
 import com.droiddip.apparchi.utils.DImageUtils;
 import com.droiddip.apparchi.utils.DLogger;

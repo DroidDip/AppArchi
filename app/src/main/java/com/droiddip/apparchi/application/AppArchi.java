@@ -7,7 +7,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.droiddip.apparchi.R;
-import com.droiddip.apparchi.api.volley.CacheRequest;
+import com.droiddip.apparchi.data.network.volley.CacheRequest;
 
 
 /**

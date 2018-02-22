@@ -1,0 +1,109 @@
+package com.droiddip.apparchi.utils;
+
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.widget.TextView;
+
+import com.droiddip.apparchi.interfaces.ISnackBar;
+
+
+/**
+ * Created by Dipanjan Chakraborty on 21-02-2018.
+ */
+
+public class DSnackBar {
+
+    public static class Builder implements ISnackBar {
+        protected String text = "";
+        protected int duration = Snackbar.LENGTH_SHORT;
+        protected float textSize;
+        protected int actionTextColor = 0;
+        protected int textColor = Color.WHITE;
+        protected int backgroundColor = Color.BLACK;
+        View.OnClickListener action = null;
+        protected SnackbarStyle style = SnackbarStyle.NORMAL;
+        protected SnackbarPosition position = SnackbarPosition.BOTTOM;
+        protected Typeface typeface = null;
+        protected View rootView;
+        protected Snackbar snackBar;
+
+        public Builder(View rootView) {
+            this.rootView = rootView;
+        }
+
+        public Builder setTextSize(float textSize) {
+            this.textSize = textSize;
+            return this;
+        }
+
+        public Builder setTextColor(int textColor) {
+            this.textColor = textColor;
+            return this;
+        }
+
+        public Builder setBackgroundColor(int backgroundColor) {
+            this.backgroundColor = backgroundColor;
+            return this;
+        }
+
+        public Builder setDuration(int duration) {
+            this.duration = duration;
+            return this;
+        }
+
+        public Builder setStyle(SnackbarStyle style) {
+            this.style = style;
+            return this;
+        }
+
+        public Builder setPosition(SnackbarPosition position) {
+            this.position = position;
+            return this;
+        }
+
+        public Builder setTypeface(Typeface typeface) {
+            this.typeface = typeface;
+            return this;
+        }
+
+        public Builder setText(String text) {
+            this.text = text;
+            return this;
+        }
+
+        public Builder setActionTextColor(int actionTextColor) {
+            this.actionTextColor = actionTextColor;
+            return this;
+        }
+
+        public void setAction(View.OnClickListener action) {
+            this.action = action;
+        }
+
+        public Snackbar build() {
+            snackBar = Snackbar.make(rootView, text, duration);
+            styleSnackbar(snackBar);
+            return snackBar;
+        }
+
+        protected Snackbar styleSnackbar(Snackbar snackbar) {
+            if (snackbar == null)
+                throw new IllegalStateException("Snackbar can never be null! Review your Builder implementation");
+
+            View snackBarView = snackbar.getView();
+            if (snackBarView != null) {
+                TextView snackBarTextView = (TextView) snackBarView.findViewById(android.support.design.R.id.snackbar_text);
+                snackBarView.setBackgroundColor(backgroundColor);
+                snackBarTextView.setTextColor(textColor);
+                snackBarTextView.setTypeface(typeface, style.value());
+            }
+            if (actionTextColor != 0)
+                snackbar.setActionTextColor(actionTextColor);
+            snackbar.setAction(text, action);
+
+            return snackbar;
+        }
+    }
+}

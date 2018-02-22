@@ -1,8 +1,7 @@
-package com.droiddip.apparchi.api.volley;
+package com.droiddip.apparchi.data.network.volley;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.widget.ImageView;
 
 import com.android.volley.AuthFailureError;
@@ -27,12 +26,9 @@ import com.droiddip.apparchi.utils.DLogger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
-import static com.droiddip.apparchi.api.volley.WSConstants.RESPONSE_200;
 
 
 public class RequestClient {
@@ -91,7 +87,7 @@ public class RequestClient {
                 DLogger.e("post_response:- " + response);
                 BaseResponse baseResponse = (BaseResponse) DGsonUtils.StringJSONTOObject(response, BaseResponse.class);
                 if (baseResponse != null) {
-                    if (baseResponse.getResponse_code().equalsIgnoreCase(RESPONSE_200)) {
+                    if (baseResponse.getResponse_code().equalsIgnoreCase(WSConstants.RESPONSE_200)) {
                         if (mBaseResponseListener != null)
                             mBaseResponseListener.requestCompleted(response);
                     } else {
@@ -151,7 +147,7 @@ public class RequestClient {
             public void onResponse(String response) {
                 DLogger.e("get_response:- " + response);
                 BaseResponse baseResponse = (BaseResponse) DGsonUtils.StringJSONTOObject(response, BaseResponse.class);
-                if (baseResponse.getResponse_code().equalsIgnoreCase(RESPONSE_200)) {
+                if (baseResponse.getResponse_code().equalsIgnoreCase(WSConstants.RESPONSE_200)) {
                     if (mBaseResponseListener != null)
                         mBaseResponseListener.requestCompleted(response);
                 } else {
@@ -213,7 +209,7 @@ public class RequestClient {
                             HttpHeaderParser.parseCharset(response.headers));
                     String apiResponse = new JSONObject(jsonString).toString();
                     BaseResponse baseResponse = (BaseResponse) DGsonUtils.StringJSONTOObject(apiResponse, BaseResponse.class);
-                    if (baseResponse.getResponse_code().equalsIgnoreCase(RESPONSE_200)) {
+                    if (baseResponse.getResponse_code().equalsIgnoreCase(WSConstants.RESPONSE_200)) {
                         if (mBaseResponseListener != null)
                             mBaseResponseListener.requestCompleted(apiResponse);
                     } else {
